@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>НавозМаркет — натуральное удобрение</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f1e8;
+      color: #2e241b;
+      line-height: 1.5;
+    }
+
+    header {
+      background: #3b2a1f;
+      color: white;
+      padding: 18px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 18px;
+    }
+
+    .hero {
+      max-width: 1100px;
+      margin: auto;
+      padding: 70px 20px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 35px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 7vw, 68px);
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 19px;
+      color: #675648;
+      margin-bottom: 28px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #5b7f35;
+      color: white;
+      padding: 13px 21px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      border: 0;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .btn:hover {
+      background: #48672a;
+    }
+
+    .hero-card {
+      background: #d9c39f;
+      border-radius: 28px;
+      min-height: 300px;
+      display: grid;
+      place-items: center;
+      font-size: 120px;
+      box-shadow: 0 15px 35px #0001;
+    }
+
+    section {
+      padding: 55px 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    h2 {
+      font-size: 34px;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .product {
+      background: white;
+      border-radius: 18px;
+      padding: 25px;
+      box-shadow: 0 8px 25px #0000000d;
+    }
+
+    .product .emoji {
+      font-size: 55px;
+      margin-bottom: 10px;
+    }
+
+    .product h3 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .product p {
+      color: #74665a;
+      min-height: 72px;
+    }
+
+    .price {
+      font-size: 25px;
+      font-weight: 800;
+      margin: 18px 0;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      text-align: center;
+    }
+
+    .feature {
+      background: #e7ddcc;
+      padding: 25px;
+      border-radius: 18px;
+    }
+
+    .feature strong {
+      display: block;
+      font-size: 19px;
+      margin-bottom: 6px;
+    }
+
+    #order {
+      background: #3b2a1f;
+      color: white;
+    }
+
+    form {
+      max-width: 520px;
+      margin: auto;
+      display: grid;
+      gap: 12px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 0;
+      font-size: 16px;
+    }
+
+    footer {
+      background: #261c16;
+      color: #cfc5bb;
+      text-align: center;
+      padding: 25px;
+      font-size: 14px;
+    }
+
+    #message {
+      text-align: center;
+      margin-top: 15px;
+      color: #d8efb5;
+    }
+
+    @media (max-width: 750px) {
+      nav a {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 45px;
+      }
+
+      .hero-card {
+        min-height: 210px;
+        font-size: 90px;
+      }
+
+      .products,
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 40px 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <nav>
+    <div class="logo">🌱 НавозМаркет</div>
+
+    <div>
+      <a href="#products">Товары</a>
+      <a href="#about">О нас</a>
+      <a href="#order">Заказать</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div>
+      <h1>Натуральное удобрение для вашего урожая</h1>
+
+      <p>
+        Качественный органический навоз для сада,
+        огорода и дачного участка.
+        Доставка по договорённости.
+      </p>
+
+      <a class="btn" href="#products">
+        Смотреть товары
+      </a>
+    </div>
+
+    <div class="hero-card">
+      💩🌱
+    </div>
+  </section>
+
+
+  <section id="products">
+    <div class="container">
+
+      <h2>Наши товары</h2>
+
+      <div class="products">
+
+        <article class="product">
+
+          <div class="emoji">🐄</div>
+
+          <h3>Коровий навоз</h3>
+
+          <p>
+            Универсальное органическое удобрение
+            для овощей, цветов и плодовых культур.
+          </p>
+
+          <div class="price">
+            500 ₽ / мешок
+          </div>
+
+          <a class="btn" href="#order">
+            Заказать
+          </a>
+
+        </article>
+
+
+        <article class="product">
+
+          <div class="emoji">🐎</div>
+
+          <h3>Конский навоз</h3>
+
+          <p>
+            Популярный вариант для садоводов
+            и огородников. Подходит для подготовки почвы.
+          </p>
+
+          <div class="price">
+            700 ₽ / мешок
+          </div>
+
+          <a class="btn" href="#order">
+            Заказать
+          </a>
+
+        </article>
+
+
+        <article class="product">
+
+          <div class="emoji">🌿</div>
+
+          <h3>Перепревший навоз</h3>
+
+          <p>
+            Выдержанное органическое удобрение
+            для использования при подготовке грунта.
+          </p>
+
+          <div class="price">
+            900 ₽ / мешок
+          </div>
+
+          <a class="btn" href="#order">
+            Заказать
+          </a>
+
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <section id="about">
+
+    <div class="container">
+
+      <h2>Почему мы?</h2>
+
+      <div class="features">
+
+        <div class="feature">
+          <strong>🌱 Натурально</strong>
+          Органическое удобрение без лишней химии.
+        </div>
+
+        <div class="feature">
+          <strong>🚚 Доставка</strong>
+          Обсудим удобный способ получения заказа.
+        </div>
+
+        <div class="feature">
+          <strong>💰 Выгодно</strong>
+          Цены указаны за стандартный мешок.
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section id="order">
+
+    <div class="container">
+
+      <h2>Оформить заявку</h2>
+
+      <form onsubmit="sendOrder(event)">
+
+        <input
+          id="name"
+          type="text"
+          placeholder="Ваше имя"
+          required
+        >
+
+        <input
+          id="phone"
+          type="tel"
+          placeholder="Телефон"
+          required
+        >
+
+        <select id="product" required>
+
+          <option value="">
+            Выберите товар
+          </option>
+
+          <option>
+            Коровий навоз — 500 ₽
+          </option>
+
+          <option>
+            Конский навоз — 700 ₽
+          </option>
+
+          <option>
+            Перепревший навоз — 900 ₽
+          </option>
+
+        </select>
+
+        <button class="btn" type="submit">
+          Отправить заявку
+        </button>
+
+      </form>
+
+      <div id="message"></div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer>
+  © 2026 НавозМаркет · Натуральное удобрение для вашего сада
+</footer>
+
+
+<script>
+
+  function sendOrder(event) {
+
+    event.preventDefault();
+
+    const name =
+      document.getElementById("name").value;
+
+    const product =
+      document.getElementById("product").value;
+
+    document.getElementById("message").textContent =
+      "Спасибо, " +
+      name +
+      "! Заявка на «" +
+      product +
+      "» принята.";
+
+  }
+
+</script>
+
+</body>
+</html>
