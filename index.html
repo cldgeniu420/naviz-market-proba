@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ВИНО420 — Коллекция вин</title>
+<style>
+:root{--font-primary:Georgia,"Times New Roman",serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,sans-serif;transition:background .8s,color .8s}
+body.red-theme{background:#1a0505;color:#f5e6d3}
+body.white-theme{background:#faf8f5;color:#3d2817}
+.scroll-indicator{position:fixed;top:0;left:0;height:4px;width:0;background:#d4af37;z-index:2000}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:20px 40px;backdrop-filter:blur(12px);border-bottom:1px solid}
+body.red-theme nav{background:rgba(26,5,5,.85);border-color:rgba(212,175,55,.2)}
+body.white-theme nav{background:rgba(250,248,245,.9);border-color:rgba(139,69,19,.15)}
+.logo{font:700 1.8rem var(--font-primary)}
+body.red-theme .logo{color:#d4af37}
+body.white-theme .logo{color:#8b4513}
+.nav-links{display:flex;gap:25px;align-items:center;list-style:none;margin:0;padding:0}
+.nav-links a{color:inherit;text-decoration:none}
+.nav-links a:hover{opacity:.7}
+.theme-toggle{padding:8px 16px;border-radius:20px;cursor:pointer;background:transparent;border:1px solid}
+body.red-theme .theme-toggle{border-color:#d4af37;color:#d4af37}
+body.white-theme .theme-toggle{border-color:#8b4513;color:#8b4513}
+.container{max-width:1400px;margin:auto;padding:120px 20px 50px}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle,rgba(212,175,55,.12),transparent 55%);animation:pulse 8s infinite}
+.hero-content{position:relative;z-index:2}
+.hero h1{font:700 5rem var(--font-primary);margin:0 0 20px}
+body.red-theme .hero h1{color:#d4af37;text-shadow:3px 3px 8px #000}
+body.white-theme .hero h1{color:#8b4513}
+.hero p{font-size:1.5rem;margin-bottom:40px}
+.cta-button{display:inline-block;padding:15px 40px;border:2px solid;text-decoration:none;text-transform:uppercase;letter-spacing:2px;color:inherit}
+body.red-theme .cta-button{border-color:#d4af37;color:#d4af37}
+body.white-theme .cta-button{border-color:#8b4513;color:#8b4513}
+.cta-button:hover{background:#d4af37;color:#2c0a0a}
+.section-title{font:700 3.2rem var(--font-primary);margin:0 0 10px;text-align:center}
+body.red-theme .section-title{color:#d4af37}
+body.white-theme .section-title{color:#8b4513}
+.section-subtitle{text-align:center;font-size:1.1rem;margin:0 0 60px;opacity:.75;text-transform:uppercase;letter-spacing:2px}
+.wine-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:40px}
+.wine-card{padding:35px;border-radius:15px;position:relative;overflow:hidden;transition:.3s;cursor:pointer}
+body.red-theme .wine-card{background:linear-gradient(145deg,rgba(139,0,0,.18),rgba(0,0,0,.25));border:1px solid rgba(212,175,55,.2)}
+body.white-theme .wine-card{background:linear-gradient(145deg,#fff,#f5f0e8);border:1px solid rgba(139,69,19,.15);box-shadow:0 10px 30px rgba(139,69,19,.08)}
+.wine-card:hover{transform:translateY(-8px)}
+.wine-badge{position:absolute;top:18px;right:18px;padding:6px 12px;border-radius:20px;font-size:.72rem;text-transform:uppercase}
+body.red-theme .wine-badge{background:#d4af37;color:#1a0505}
+body.white-theme .wine-badge{background:#8b4513;color:white}
+.wine-bottle{height:230px;border-radius:12px;margin-bottom:25px;display:flex;align-items:center;justify-content:center;font-size:7rem;background:linear-gradient(135deg,#722f37,#4a1515)}
+.white-section .wine-bottle{background:linear-gradient(135deg,#f5e6d3,#e6d5c3)}
+.wine-name{font:700 1.6rem var(--font-primary);margin:0 0 10px}
+body.red-theme .wine-name{color:#f5e6d3}
+body.white-theme .wine-name{color:#3d2817}
+.wine-region{font-size:.9rem;margin-bottom:18px;opacity:.8}
+.wine-description{line-height:1.7;font-size:.95rem;margin-bottom:20px}
+.wine-characteristics{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.characteristic{padding:5px 10px;border-radius:15px;font-size:.78rem}
+body.red-theme .characteristic{background:rgba(212,175,55,.12);color:#d4af37}
+body.white-theme .characteristic{background:rgba(139,69,19,.08);color:#8b4513}
+.wine-price{font:700 1.8rem var(--font-primary)}
+body.red-theme .wine-price{color:#d4af37}
+body.white-theme .wine-price{color:#8b4513}
+.about-section{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin:100px 0}
+.about-image{height:450px;border-radius:20px;background:radial-gradient(circle,#722f37,#2c0a0a);display:flex;align-items:center;justify-content:center;font-size:9rem}
+.about-image::after{content:"🍷"}
+.about-content h2{font:700 2.5rem var(--font-primary)}
+body.red-theme .about-content h2{color:#d4af37}
+body.white-theme .about-content h2{color:#8b4513}
+.about-content p{font-size:1.05rem;line-height:1.8;opacity:.9}
+footer{padding:60px 20px;text-align:center;margin-top:80px;border-top:1px solid}
+body.red-theme footer{background:linear-gradient(to top,#1a0505,transparent);border-color:rgba(212,175,55,.2)}
+body.white-theme footer{background:linear-gradient(to top,#e8e0d5,transparent);border-color:rgba(139,69,19,.1)}
+.footer-content{max-width:800px;margin:auto}
+.support-label{text-transform:uppercase;letter-spacing:3px;font-size:.9rem}
+.support-phone{font:700 2rem var(--font-primary);margin:12px 0 20px}
+body.red-theme .support-phone{color:#d4af37}
+body.white-theme .support-phone{color:#8b4513}
+.social-links{display:flex;justify-content:center;gap:15px;margin:30px 0}
+.social-links a{width:42px;height:42px;border:1px solid;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;color:inherit}
+.privacy-policy{margin-top:30px;padding-top:30px;font-size:.85rem;line-height:1.8;border-top:1px solid;opacity:.7}
+.theme-switcher{position:fixed;bottom:25px;right:25px;width:58px;height:58px;border:0;border-radius:50%;cursor:pointer;font-size:1.4rem;z-index:999;transition:.3s}
+body.red-theme .theme-switcher{background:#d4af37}
+body.white-theme .theme-switcher{background:#8b4513;color:white}
+.theme-switcher:hover{transform:scale(1.1) rotate(180deg)}
+@keyframes pulse{50%{transform:scale(1.2);opacity:.7}}
+@media(max-width:768px){
+ nav{padding:15px 20px}.nav-links{display:none}.hero h1{font-size:3.2rem}
+ .section-title{font-size:2.2rem}.wine-grid{grid-template-columns:1fr}
+ .about-section{grid-template-columns:1fr}.container{padding-top:90px}
+ .about-image{height:300px}.wine-card{padding:25px}
+}
+@media(max-width:480px){.hero h1{font-size:2.7rem}.hero p{font-size:1.1rem}.support-phone{font-size:1.5rem}}
+</style>
+</head>
+<body class="red-theme">
+<div class="scroll-indicator" id="scrollIndicator"></div>
+
+<nav>
+  <div class="logo">🍷 ВИНО420</div>
+  <ul class="nav-links">
+    <li><a href="#home">Главная</a></li>
+    <li><a href="#red-wines">Красные</a></li>
+    <li><a href="#white-wines">Белые</a></li>
+    <li><a href="#about">О нас</a></li>
+    <li><a href="#contacts">Контакты</a></li>
+    <li><button class="theme-toggle" onclick="toggleTheme()">Сменить тему</button></li>
+  </ul>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <h1>Вино420</h1>
+    <p>Эксклюзивная коллекция вин со всего мира</p>
+    <a href="#red-wines" class="cta-button">Смотреть коллекцию</a>
+  </div>
+</section>
+
+<section id="red-wines">
+<div class="container">
+<h2 class="section-title">Коллекция красных вин</h2>
+<p class="section-subtitle">Редчайшие винтажи со всего мира</p>
+<div class="wine-grid">
+
+<div class="wine-card"><span class="wine-badge">Эксклюзив</span><div class="wine-bottle">🍷</div><h3 class="wine-name">Château Pétrus 1990</h3><div class="wine-region">🇫🇷 Помероль, Бордо, Франция</div><p class="wine-description">Легендарное вино из культового виноградника. Насыщенный букет чёрной смородины, трюфелей и ванили.</p><div class="wine-characteristics"><span class="characteristic">🍇 Мерло 100%</span><span class="characteristic">⏰ 1990</span><span class="characteristic">🌡️ 18°C</span></div><div class="wine-price">1 250 000 ₽</div></div>
+
+<div class="wine-card"><span class="wine-badge">Винтаж</span><div class="wine-bottle">🍷</div><h3 class="wine-name">Sassicaia 2015</h3><div class="wine-region">🇮🇹 Тоскана, Италия</div><p class="wine-description">Премиальное супертосканское вино с ароматами спелой вишни, чернослива и лаванды.</p><div class="wine-characteristics"><span class="characteristic">🍇 Каберне Совиньон</span><span class="characteristic">⏰ 2015</span><span class="characteristic">🌡️ 18°C</span></div><div class="wine-price">85 000 ₽</div></div>
+
+<div class="wine-card"><span class="wine-badge">Редкость</span><div class="wine-bottle">🍷</div><h3 class="wine-name">Screaming Eagle 2018</h3><div class="wine-region">🇺🇸 Напа-Вэлли, Калифорния</div><p class="wine-description">Культовое американское вино с ароматами черники, кедра и мокко.</p><div class="wine-characteristics"><span class="characteristic">🍇 Каберне Совиньон</span><span class="characteristic">⏰ 2018</span><span class="characteristic">🌡️ 16-18°C</span></div><div class="wine-price">450 000 ₽</div></div>
+
+<div class="wine-card"><span class="wine-badge">Лимитка</span><div class="wine-bottle">🍷</div><h3 class="wine-name">Penfolds Grange 2016</h3><div class="wine-region">🇦🇺 Баросса, Австралия</div><p class="wine-description">Икона австралийского виноделия с нотами чёрной смородины, ликёра и тёмного шоколада.</p><div class="wine-characteristics"><span class="characteristic">🍇 Шираз</span><span class="characteristic">⏰ 2016</span><span class="characteristic">🌡️ 18°C</span></div><div class="wine-price">120 000 ₽</div></div>
+
+<div class="wine-card"><span class="wine-badge">Коллекция</span><div class="wine-bottle">🍷</div><h3 class="wine-name">Vega Sicilia Único 2009</h3><div class="wine-region">🇪🇸 Рибера-дель-Дуэро, Испания</div><p class="wine-description">Элегантное испанское вино с тёмными ягодами, бальзамическими и древесными оттенками.</p><div class="wine-characteristics"><span class="characteristic">🍇 Темпранильо</span><span class="characteristic">⏰ 2009</span><span class="characteristic">🌡️ 17°C</span></div><div class="wine-price">95 000 ₽</div></div>
+
+<div class="wine-card"><span class="wine-badge">Премиум</span><div class="wine-bottle">🍷</div><h3 class="wine-name">Domaine de la Romanée-Conti 2014</h3><div class="wine-region">🇫🇷 Бургундия, Франция</div><p class="wine-description">Престижное бургундское вино с ароматами красных ягод, роз и земли.</p><div class="wine-characteristics"><span class="characteristic">🍇 Пино Нуар</span><span class="characteristic">⏰ 2014</span><span class="characteristic">🌡️ 16°C</span></div><div class="wine-price">980 000 ₽</div></div>
+
+</div></div></section>
+
+<section id="white-wines" class="white-section">
+<div class="container">
+<h2 class="section-title">Коллекция белых вин</h2>
+<p class="section-subtitle">Изысканные оттенки элегантности</p>
+<div class="wine-grid">
+
+<div class="wine-card"><span class="wine-badge">Гран Крю</span><div class="wine-bottle">🥂</div><h3 class="wine-name">Domaine Leflaive Montrachet 2017</h3><div class="wine-region">🇫🇷 Бургундия, Франция</div><p class="wine-description">Легендарное белое бургундское вино с оттенками яблок, цветов, орехов и сливочного масла.</p><div class="wine-characteristics"><span class="characteristic">🍇 Шардоне</span><span class="characteristic">⏰ 2017</span><span class="characteristic">🌡️ 12°C</span></div><div class="wine-price">380 000 ₽</div></div>
+
+<div class="wine-card"><span class="wine-badge">Винтаж</span><div class="wine-bottle">🥂</div><h3 class="wine-name">Château d'Yquem 2009</h3><div class="wine-region">🇫🇷 Сотерн, Бордо, Франция</div><p class="wine-description">Знаменитое десертное вино с ароматами манго, абрикоса и мёда.</p><div class="wine-characteristics"><span class="characteristic">🍇 Совиньон Блан, Семильон</span><span class="characteristic">⏰ 2009</span><span class="characteristic">🌡️ 8-10°C</span></div><div class="wine-price">145 000 ₽</div></div>
+
+<div class="wine-card"><span class="wine-badge">Эксклюзив</span><div class="wine-bottle">🥂</div><h3 class="wine-name">Krug Clos du Mesnil 2004</h3><div class="wine-region">🇫🇷 Шампань, Франция</div><p class="wine-description">Белое шампанское из единственного виноградника с ароматами цитрусов и белого персика.</p><div class="wine-characteristics"><span class="characteristic">🍇 Шардоне</span><span class="characteristic">⏰ 2004</span><span class="characteristic">🌡️ 8°C</span></div><div class="wine-price">520 000 ₽</div></div>
+
+<div class="wine-card"><span class="wine-badge">Органик</span><div class="wine-bottle">🥂</div><h3 class="wine-name">Cloudy Bay Te Koko 2019</h3><div class="wine-region">🇳🇿 Мальборо, Новая Зеландия</div><p class="wine-description">Премиальный совиньон блан с ароматами грейпфрута, имбиря и ванили.</p><div class="wine-characteristics"><span class="characteristic">🍇 Совиньон Блан</span><span class="characteristic">⏰ 2019</span><span class="characteristic">🌡️ 10-12°C</span></div><div class="wine-price">18 500 ₽</div></div>
+
+<div class="wine-card"><span class="wine-badge">Раритет</span><div class="wine-bottle">🥂</div><h3 class="wine-name">Egon Müller Scharzhofberger Riesling TBA 2010</h3><div class="wine-region">🇩🇪 Мозель, Германия</div><p class="wine-description">Легендарный рислинг с медовой консистенцией и нотами тропических фруктов и цветов.</p><div class="wine-characteristics"><span class="characteristic">🍇 Рислинг</span><span class="characteristic">⏰ 2010</span><span class="characteristic">🌡️ 6-8°C</span></div><div class="wine-price">285 000 ₽</div></div>
+
+<div class="wine-card"><span class="wine-badge">Резерв</span><div class="wine-bottle">🥂</div><h3 class="wine-name">Gaja Gaia & Rey Chardonnay 2018</h3><div class="wine-region">🇮🇹 Пьемонт, Италия</div><p class="wine-description">Полнотелое кремовое вино с ароматами ананаса, фундука и бриоши.</p><div class="wine-characteristics"><span class="characteristic">🍇 Шардоне</span><span class="characteristic">⏰ 2018</span><span class="characteristic">🌡️ 11-13°C</span></div><div class="wine-price">95 000 ₽</div></div>
+
+</div></div></section>
+
+<section id="about">
+<div class="container">
+<div class="about-section">
+<div class="about-image"></div>
+<div class="about-content">
+<h2>Искусство виноделия</h2>
+<p>Мы создаём коллекцию для ценителей вин со всего мира. Каждая позиция представлена как часть нашей демонстрационной витрины.</p>
+<p>На сайте можно переключать темы, просматривать коллекцию и пользоваться навигацией.</p>
+<p>Это учебный демонстрационный сайт.</p>
+</div>
+</div>
+</div>
+</section>
+
+<footer id="contacts">
+<div class="footer-content">
+<div class="support-label">Служба поддержки</div>
+<div class="support-phone">+7 (999) 420-42-00</div>
+<p>vip@vino420.ru</p>
+<p>Москва, ул. Винодельная, 42</p>
+<div class="social-links"><a href="#">IG</a><a href="#">FB</a><a href="#">TG</a></div>
+<div class="privacy-policy"><strong>Информация:</strong><br>Сайт является учебным демонстрационным проектом. Представленные товары, цены и контакты являются вымышленными. Алкогольная продукция не продаётся через этот сайт.</div>
+<p style="margin-top:30px;font-size:.8rem;opacity:.6">© 2026 ВИНО420. Учебный проект.</p>
+</div>
+</footer>
+
+<button class="theme-switcher" onclick="toggleTheme()" title="Сменить тему">🍷</button>
+
+<script>
+function toggleTheme(){
+ const b=document.body;
+ b.classList.toggle('red-theme');
+ b.classList.toggle('white-theme');
+}
+window.addEventListener('scroll',()=>{
+ const h=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+ document.getElementById('scrollIndicator').style.width=(window.scrollY/h*100)+'%';
+});
+document.querySelectorAll('.wine-card').forEach((card,i)=>{
+ card.style.opacity='0';card.style.transform='translateY(30px)';
+ card.style.transition=`opacity .6s ease ${i*.08}s,transform .6s ease ${i*.08}s`;
+});
+const observer=new IntersectionObserver(entries=>{
+ entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});
+},{threshold:.1});
+document.querySelectorAll('.wine-card').forEach(c=>observer.observe(c));
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+ a.addEventListener('click',e=>{
+  e.preventDefault();
+  const t=document.querySelector(a.getAttribute('href'));
+  if(t)t.scrollIntoView({behavior:'smooth'});
+ });
+});
+</script>
+</body>
+</html>
